@@ -1,0 +1,31 @@
+---
+import type { HomepageContent } from "../types/content";
+
+type Props = {
+  content: HomepageContent["cta"];
+};
+
+const { content } = Astro.props;
+---
+
+<section id="cta" class="section-shell py-20 md:py-28">
+  <div class="cta-box-lite">
+    <h2 class="display-font mx-auto max-w-4xl text-4xl leading-tight text-white md:text-5xl">{content.title}</h2>
+    <p class="mx-auto mt-4 max-w-3xl text-lg leading-8 text-white/74">{content.description}</p>
+
+    <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+      <a
+        href={content.primaryCta.href}
+        class="inline-flex items-center justify-center rounded-lg bg-[var(--color-primary)] px-7 py-4 text-sm font-extrabold text-[var(--color-surface)] transition hover:bg-[var(--color-mist)]"
+      >
+        {content.primaryCta.label}
+      </a>
+      <a
+        href={content.secondaryCta.href}
+        class="inline-flex items-center justify-center rounded-lg border border-white/16 px-7 py-4 text-sm font-extrabold text-white transition hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
+      >
+        {content.secondaryCta.label}
+      </a>
+    </div>
+  </div>
+</section>

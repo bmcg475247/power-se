@@ -1,0 +1,40 @@
+---
+import "../styles/global.css";
+import logo from "../assets/pse-logo.png";
+import { siteConfig } from "../data/site";
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const {
+  title = `${siteConfig.companyName} | Electrical Safety & Power System Engineering`,
+  description = "Electrical engineering support for arc flash studies, power system analysis, and investigations across Ontario."
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href={logo.src} />
+    <link rel="apple-touch-icon" href={logo.src} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <slot />
+    <script>
+      document.querySelectorAll("[data-quote-form]").forEach((form) => {
+        const nextInput = form.querySelector('input[name="_next"]');
+        const returnHash = form.getAttribute("data-quote-return-hash") || "";
+
+        if (nextInput) {
+          nextInput.value = `${window.location.origin}${window.location.pathname}?quote=sent${returnHash}`;
+        }
+      });
+    </script>
+  </body>
+</html>

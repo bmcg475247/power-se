@@ -1,0 +1,58 @@
+---
+import logo from "../assets/pse-logo.png";
+import { siteConfig } from "../data/site";
+---
+
+<footer class="site-footer-lite">
+  <div class="section-shell py-14">
+    <div class="footer-grid-lite">
+      <div>
+        <a href="#top" class="footer-logo-lite">
+          <img src={logo.src} alt="Power Systems Experts logo" class="h-10 w-10 object-contain" />
+          <span class="footer-logo-text-lite">POWER SYSTEMS EXPERTS</span>
+        </a>
+        <p class="mt-5 max-w-sm text-[0.96rem] leading-7 text-white/68">
+          Professional electrical engineering consulting focused on arc flash studies, power system analysis, and practical electrical safety support.
+        </p>
+        <div class="mt-5 space-y-2 text-sm text-white/72">
+          <p><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></p>
+          <p><a href={`tel:${siteConfig.phone.replace(/[^\d+]/g, "")}`}>{siteConfig.phone}</a></p>
+          <p>{siteConfig.address}</p>
+        </div>
+      </div>
+
+      <div>
+        <p class="footer-heading-lite">Services</p>
+        <ul class="footer-list-lite">
+          <li><a href="#">Arc Flash Analysis</a></li>
+          <li><a href="#">Power System Studies</a></li>
+          <li><a href="#">Engineering Support</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer-heading-lite">Company</p>
+        <ul class="footer-list-lite">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer-heading-lite">Focus</p>
+        <ul class="footer-list-lite">
+          <li>CSA Z462 Compliance</li>
+          <li>Arc Flash Risk Reduction</li>
+          <li>Industrial Facilities</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom-lite">
+      <p>&copy; 2026 Power Systems Experts. All rights reserved.</p>
+      <p>Built for safer facilities and stronger systems.</p>
+    </div>
+  </div>
+</footer>

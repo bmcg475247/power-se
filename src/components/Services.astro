@@ -1,0 +1,47 @@
+---
+import type { HomepageContent } from "../types/content";
+
+type Props = {
+  content: HomepageContent["services"];
+};
+
+const { content } = Astro.props;
+---
+
+<section id="services" class="section-shell py-20 md:py-28">
+  <div class="mx-auto max-w-3xl text-center">
+    <h2 class="section-title">{content.eyebrow}</h2>
+    <p class="mt-3 text-lg leading-8 text-[var(--color-ink)]/68">{content.title}</p>
+  </div>
+
+  <div class="mt-12 grid gap-6 lg:grid-cols-3">
+    {content.items.map((item, index) => (
+      <article class="service-card-lite">
+        <div class="service-icon-lite">
+          {index === 0 ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="46" height="46">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          ) : index === 1 ? (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="46" height="46">
+              <path d="M1 12C3.5 4 5 4 7 4s3.5 0 5 8c1.5 8 3 8 5 8s3.5 0 6-8"></path>
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="46" height="46">
+              <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
+              <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
+              <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
+              <path d="M10 6h4"></path>
+              <path d="M10 10h4"></path>
+              <path d="M10 14h4"></path>
+              <path d="M10 18h4"></path>
+            </svg>
+          )}
+        </div>
+        <h3 class="mt-5 text-[1.42rem] font-extrabold leading-tight text-[var(--color-ink)]">{item.title}</h3>
+        <p class="mt-3 flex-1 text-[0.97rem] leading-7 text-[var(--color-ink)]/66">{item.description}</p>
+        <span class="service-link-lite">Learn more -></span>
+      </article>
+    ))}
+  </div>
+</section>

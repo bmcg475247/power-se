@@ -1,0 +1,85 @@
+---
+import { siteConfig } from "../data/site";
+import type { HomepageContent } from "../types/content";
+
+type Props = {
+  content: HomepageContent["contact"];
+};
+
+const { content } = Astro.props;
+---
+
+<section id="contact" class="section-shell py-20 md:py-28">
+  <div class="grid gap-8 lg:grid-cols-[0.88fr_1.12fr]">
+    <div class="dark-panel rounded-[2rem] border border-white/8 p-8 md:p-10">
+      <p class="section-eyebrow text-[var(--color-accent)]">{content.eyebrow}</p>
+      <h2 class="display-font mt-6 text-4xl leading-tight text-white md:text-5xl">{content.title}</h2>
+      <p class="mt-6 text-lg leading-8 text-white/74">{content.description}</p>
+
+      <div class="mt-10 space-y-5 border-t border-white/10 pt-8">
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.26em] text-[var(--color-accent)]/74">Phone</p>
+          <a class="mt-2 block text-xl text-white transition hover:text-[var(--color-accent)]" href={`tel:${siteConfig.phone.replace(/[^\d+]/g, "")}`}>
+            {siteConfig.phone}
+          </a>
+        </div>
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.26em] text-[var(--color-accent)]/74">Email</p>
+          <a class="mt-2 block text-xl text-white transition hover:text-[var(--color-accent)]" href={`mailto:${siteConfig.email}`}>
+            {siteConfig.email}
+          </a>
+        </div>
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.26em] text-[var(--color-accent)]/74">Location</p>
+          <p class="mt-2 text-xl text-white/88">{siteConfig.address}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="metal-card rounded-[2rem] border border-white/60 p-8 md:p-10">
+      <form
+        action={`https://formsubmit.co/${siteConfig.email}`}
+        method="post"
+        data-quote-form
+        data-quote-return-hash="#contact"
+        class="grid gap-5"
+      >
+        <input type="hidden" name="_subject" value="Contact Quote Request" />
+        <input type="hidden" name="_next" value="" />
+        <input type="hidden" name="_template" value="table" />
+        {content.fields.map((field) => (
+          field.type === "textarea" ? (
+            <label class="block">
+              <span class="mb-2 block text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-ink)]/64">{field.label}</span>
+              <textarea
+                name={field.name}
+                placeholder={field.placeholder}
+                rows={6}
+                class="w-full rounded-[1.5rem] border border-[var(--color-line)] bg-white/76 px-5 py-4 text-[var(--color-ink)] outline-none transition placeholder:text-[var(--color-ink)]/36 focus:border-[var(--color-primary)]"
+                required={field.required}
+              ></textarea>
+            </label>
+          ) : (
+            <label class="block">
+              <span class="mb-2 block text-sm font-bold uppercase tracking-[0.18em] text-[var(--color-ink)]/64">{field.label}</span>
+              <input
+                type={field.type}
+                name={field.name}
+                placeholder={field.placeholder}
+                class="w-full rounded-[999px] border border-[var(--color-line)] bg-white/76 px-5 py-4 text-[var(--color-ink)] outline-none transition placeholder:text-[var(--color-ink)]/36 focus:border-[var(--color-primary)]"
+                required={field.required}
+              />
+            </label>
+          )
+        ))}
+
+        <button
+          type="submit"
+          class="mt-2 inline-flex items-center justify-center rounded-full bg-[var(--color-primary)] px-7 py-4 text-sm font-extrabold uppercase tracking-[0.18em] text-white transition hover:bg-[var(--color-primary-deep)]"
+        >
+          {content.submitLabel}
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
