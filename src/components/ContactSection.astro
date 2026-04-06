@@ -38,15 +38,15 @@ const { content } = Astro.props;
 
     <div class="metal-card rounded-[2rem] border border-white/60 p-8 md:p-10">
       <form
-        action={`https://formsubmit.co/${siteConfig.email}`}
+        name="contact-quote"
+        action="/"
         method="post"
-        data-quote-form
-        data-quote-return-hash="#contact"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
         class="grid gap-5"
       >
-        <input type="hidden" name="_subject" value="Contact Quote Request" />
-        <input type="hidden" name="_next" value="" />
-        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="form-name" value="contact-quote" />
+        <input type="hidden" name="bot-field" />
         {content.fields.map((field) => (
           field.type === "textarea" ? (
             <label class="block">

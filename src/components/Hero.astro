@@ -1,6 +1,5 @@
 ---
 import heroBackground from "../assets/hero-industrial-bg.png";
-import { siteConfig } from "../data/site";
 import type { HeroContent } from "../types/content";
 
 type Props = {
@@ -52,16 +51,15 @@ const { content } = Astro.props;
         </p>
 
         <form
-          action={`https://formsubmit.co/${siteConfig.email}`}
+          name="homepage-quote"
+          action="/"
           method="post"
-          data-quote-form
-          data-quote-return-hash="#top"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
           class="mt-4 grid gap-2.5"
-          netlify
         >
-          <input type="hidden" name="_subject" value="Homepage Quote Request" />
-          <input type="hidden" name="_next" value="" />
-          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="form-name" value="homepage-quote" />
+          <input type="hidden" name="bot-field" />
           <input
             type="text"
             name="name"
@@ -109,15 +107,15 @@ const { content } = Astro.props;
       </p>
 
       <form
-        action={`https://formsubmit.co/${siteConfig.email}`}
+        name="homepage-quote"
+        action="/"
         method="post"
-        data-quote-form
-        data-quote-return-hash="#mobile-quote-form"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
         class="mt-4 grid gap-2.5"
       >
-        <input type="hidden" name="_subject" value="Homepage Quote Request" />
-        <input type="hidden" name="_next" value="" />
-        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="form-name" value="homepage-quote" />
+        <input type="hidden" name="bot-field" />
         <input
           type="text"
           name="name"

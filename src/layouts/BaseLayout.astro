@@ -26,15 +26,5 @@ const {
   </head>
   <body>
     <slot />
-    <script>
-      document.querySelectorAll("[data-quote-form]").forEach((form) => {
-        const nextInput = form.querySelector('input[name="_next"]');
-        const returnHash = form.getAttribute("data-quote-return-hash") || "";
-
-        if (nextInput) {
-          nextInput.value = `${window.location.origin}${window.location.pathname}?quote=sent${returnHash}`;
-        }
-      });
-    </script>
   </body>
 </html>
