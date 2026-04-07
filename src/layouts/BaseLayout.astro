@@ -26,5 +26,242 @@ const {
   </head>
   <body>
     <slot />
+    <div id="site-toast" class="site-toast" role="status" aria-live="polite" aria-atomic="true" hidden>
+      <div class="site-toast__mark" aria-hidden="true">✓</div>
+      <div class="site-toast__content">
+        <p id="site-toast-title" class="site-toast__title">Message sent</p>
+        <p id="site-toast-message" class="site-toast__message">Thanks. We’ll follow up with you soon.</p>
+      </div>
+      <button id="site-toast-close" class="site-toast__close" type="button" aria-label="Dismiss notification">×</button>
+    </div>
+
+    <script>
+      const toast = document.getElementById("site-toast");
+      const toastTitle = document.getElementById("site-toast-title");
+      const toastMessage = document.getElementById("site-toast-message");
+      const toastClose = document.getElementById("site-toast-close");
+      let toastTimer;
+
+      const showToast = ({ title, message, variant = "success" }) => {
+        if (!toast || !toastTitle || !toastMessage) {
+          return;
+        }
+
+        window.clearTimeout(toastTimer);
+        toastTitle.textContent = title;
+        toastMessage.textContent = message;
+        toast.dataset.variant = variant;
+        toast.hidden = false;
+        requestAnimationFrame(() => toast.classList.add("is-visible"));
+
+        toastTimer = window.setTimeout(() => {
+          toast.classList.remove("is-visible");
+        }, 5200);
+      };
+
+      toastClose?.addEventListener("click", () => {
+        toast?.classList.remove("is-visible");
+      });
+
+      toast?.addEventListener("transitionend", () => {
+        if (!toast.classList.contains("is-visible")) {
+          toast.hidden = true;
+        }
+      });
+
+      const getFormFields = (form) =>
+        [...form.querySelectorAll("input, select, textarea")].filter(
+          (field) => !field.matches('[type="hidden"], [name="bot-field"]') && !field.disabled
+        );
+
+      const getFieldLabel = (field) =>
+        field.getAttribute("aria-label") ||
+        field.closest("label")?.querySelector("span")?.textContent?.trim() ||
+        field.getAttribute("placeholder") ||
+        "This field";
+
+      const getFieldError = (field) => {
+        const label = getFieldLabel(field);
+
+        if (field.validity.valueMissing) {
+          return `${label} is required.`;
+        }
+
+        if (field.validity.typeMismatch && field.getAttribute("type") === "email") {
+          return "Please enter a valid email address.";
+        }
+
+        if (field.validity.typeMismatch && field.getAttribute("type") === "tel") {
+          return "Please enter a valid phone number.";
+        }
+
+        return `Please check ${label.toLowerCase()}.`;
+      };
+
+      const clearFieldError = (field) => {
+        field.classList.remove("has-field-error");
+        field.removeAttribute("aria-invalid");
+        field.parentElement?.querySelectorAll(`.field-error-message[data-field-name="${field.name}"]`).forEach((message) => message.remove());
+
+        const originalDescription = field.dataset.originalDescribedby;
+        if (originalDescription) {
+          field.setAttribute("aria-describedby", originalDescription);
+        } else {
+          field.removeAttribute("aria-describedby");
+        }
+      };
+
+      const setFieldError = (field, message) => {
+        clearFieldError(field);
+
+        if (!field.dataset.originalDescribedby) {
+          field.dataset.originalDescribedby = field.getAttribute("aria-describedby") || "";
+        }
+
+        const errorId = `${field.name || "field"}-${Math.random().toString(36).slice(2)}-error`;
+        const error = document.createElement("p");
+        error.id = errorId;
+        error.className = "field-error-message";
+        error.dataset.fieldName = field.name;
+        error.textContent = message;
+
+        field.classList.add("has-field-error");
+        field.setAttribute("aria-invalid", "true");
+        field.setAttribute(
+          "aria-describedby",
+          [field.dataset.originalDescribedby, errorId].filter(Boolean).join(" ")
+        );
+        field.insertAdjacentElement("afterend", error);
+      };
+
+      const validateField = (field) => {
+        clearFieldError(field);
+
+        if (field.checkValidity()) {
+          return true;
+        }
+
+        setFieldError(field, getFieldError(field));
+        return false;
+      };
+
+      const validateForm = (form) => {
+        const invalidFields = getFormFields(form).filter((field) => !validateField(field));
+        return invalidFields;
+      };
+
+      document.querySelectorAll('form[data-netlify="true"]').forEach((form) => {
+        form.setAttribute("novalidate", "");
+
+        getFormFields(form).forEach((field) => {
+          field.addEventListener("input", () => clearFieldError(field));
+          field.addEventListener("change", () => clearFieldError(field));
+          field.addEventListener("blur", () => {
+            if (field.classList.contains("has-field-error")) {
+              validateField(field);
+            }
+          });
+        });
+
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          const invalidFields = validateForm(form);
+          if (invalidFields.length) {
+            invalidFields[0].focus();
+            showToast({
+              title: "Please check the form",
+              message: "A required field is missing or needs a quick correction.",
+              variant: "error"
+            });
+            return;
+          }
+
+          const formData = new FormData(form);
+
+          if (`${formData.get("bot-field") || ""}`.trim()) {
+            return;
+          }
+
+          const body = new URLSearchParams();
+          for (const [key, value] of formData.entries()) {
+            body.append(key, value instanceof File ? value.name : `${value}`);
+          }
+
+          const submitButton = form.querySelector('button[type="submit"]');
+          const originalButtonText = submitButton?.textContent;
+
+          if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = "Sending...";
+          }
+
+          try {
+            const response = await fetch(form.getAttribute("action") || "/", {
+              method: "POST",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body
+            });
+
+            if (!response.ok) {
+              throw new Error("Form submission failed");
+            }
+
+            form.reset();
+            getFormFields(form).forEach(clearFieldError);
+            showToast({
+              title: "Request sent",
+              message: "Thanks. Your details were submitted and our team will follow up soon."
+            });
+          } catch {
+            showToast({
+              title: "Something went wrong",
+              message: "Please try again, or call us directly if the form keeps giving you trouble.",
+              variant: "error"
+            });
+          } finally {
+            if (submitButton) {
+              submitButton.disabled = false;
+              submitButton.textContent = originalButtonText || "Submit";
+            }
+          }
+        });
+      });
+
+      document.addEventListener("click", (event) => {
+        const link = event.target instanceof Element ? event.target.closest("a[href]") : null;
+
+        if (!(link instanceof HTMLAnchorElement)) {
+          return;
+        }
+
+        const href = link.getAttribute("href");
+        if (!href || href === "#" || !href.includes("#")) {
+          return;
+        }
+
+        const targetUrl = new URL(link.href, window.location.href);
+        const currentPath = window.location.pathname.replace(/\/$/, "") || "/";
+        const targetPath = targetUrl.pathname.replace(/\/$/, "") || "/";
+
+        if (targetUrl.origin !== window.location.origin || targetPath !== currentPath || !targetUrl.hash) {
+          return;
+        }
+
+        const target = document.querySelector(targetUrl.hash);
+        if (!(target instanceof HTMLElement)) {
+          return;
+        }
+
+        event.preventDefault();
+
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        target.scrollIntoView({
+          behavior: prefersReducedMotion ? "auto" : "smooth",
+          block: "start"
+        });
+        history.pushState(null, "", `${targetUrl.pathname}${targetUrl.search}${targetUrl.hash}`);
+      });
+    </script>
   </body>
 </html>

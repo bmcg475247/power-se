@@ -1,0 +1,94 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { blogPageContent } from "../data/blog";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const { hero, posts } = blogPageContent;
+const [featuredPost, ...standardPosts] = posts;
+---
+
+<BaseLayout
+  title="Blog | Power Systems Experts Inc."
+  description="Technical articles and practical electrical engineering guidance from Power Systems Experts Inc. on arc flash, CSA Z462, power quality, and power system studies."
+>
+  <Header />
+  <main class="bg-white">
+    <section class="relative overflow-hidden bg-[var(--color-surface)] text-white">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_82%_22%,rgba(230,176,46,0.2),transparent_28%),linear-gradient(135deg,#2d2b30_0%,#17161a_72%)]"></div>
+      <div class="absolute inset-0 ambient-grid opacity-[0.06]"></div>
+      <div class="section-shell relative py-24 md:py-32 lg:py-36">
+        <div class="max-w-[21rem] sm:max-w-3xl">
+          <p class="hero-kicker">{hero.eyebrow}</p>
+          <h1 class="display-font text-[2.65rem] leading-none tracking-[-0.04em] sm:text-5xl md:text-6xl">{hero.title}</h1>
+          <p class="mt-6 max-w-[20rem] text-lg leading-8 text-white/88 sm:max-w-2xl md:text-xl">{hero.description}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell py-18 md:py-24">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="section-eyebrow">Latest Guidance</p>
+        <h2 class="section-title mt-4">Clear technical notes for safer, more reliable facilities</h2>
+        <p class="mt-5 text-lg leading-8 text-[var(--color-ink)]/84">
+          We are building a practical article library for facility managers, maintenance teams, and engineering leaders who need clear next steps.
+        </p>
+      </div>
+    </section>
+
+    <section class="section-shell pb-20 md:pb-28">
+      <article id={featuredPost.slug} class="blog-feature-card">
+        <div class="blog-feature-visual" aria-hidden="true">
+          <div class="blog-panel-illustration">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <div class="blog-feature-copy">
+          <div class="flex flex-wrap items-center gap-3 text-xs font-extrabold uppercase tracking-[0.18em] text-[var(--color-primary)]">
+            <span>{featuredPost.category}</span>
+            <span class="text-[var(--color-ink)]/32">/</span>
+            <span>{featuredPost.readTime}</span>
+          </div>
+          <h2 class="display-font mt-4 text-3xl leading-tight tracking-[-0.03em] text-[var(--color-ink)] md:text-4xl">{featuredPost.title}</h2>
+          <p class="mt-4 text-base leading-8 text-[var(--color-ink)]/84 md:text-lg">{featuredPost.excerpt}</p>
+          <a href="/blog" class="mt-6 inline-flex items-center text-sm font-extrabold text-[var(--color-surface)] transition hover:text-[var(--color-primary-deep)]">
+            Read article
+            <span class="ml-2" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </article>
+
+      <div class="mt-8 grid gap-5 md:grid-cols-3">
+        {standardPosts.map((post) => (
+          <article id={post.slug} class="blog-card">
+            <div class="blog-card-mark" aria-hidden="true"></div>
+            <p class="text-xs font-extrabold uppercase tracking-[0.18em] text-[var(--color-primary)]">{post.category}</p>
+            <h3 class="display-font mt-4 text-2xl leading-tight tracking-[-0.03em] text-[var(--color-ink)]">{post.title}</h3>
+            <p class="mt-4 text-[0.96rem] leading-7 text-[var(--color-ink)]/84">{post.excerpt}</p>
+            <div class="mt-auto flex items-center justify-between gap-3 pt-6 text-sm font-bold">
+              <span class="text-[var(--color-ink)]/72">{post.readTime}</span>
+              <a href="/blog" class="text-[var(--color-surface)] transition hover:text-[var(--color-primary-deep)]">Read article →</a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section-shell pb-20 md:pb-28">
+      <div class="cta-box-lite">
+        <p class="section-eyebrow">Have a Topic?</p>
+        <h2 class="display-font mt-4 text-4xl leading-tight tracking-[-0.03em] text-white md:text-5xl">Need guidance on an electrical safety question?</h2>
+        <p class="mx-auto mt-5 max-w-2xl text-base leading-8 text-white/88 md:text-lg">
+          Send us the issue you are trying to understand, and we can help point you toward the right study, investigation, or documentation path.
+        </p>
+        <a href="/#cta" class="mt-8 inline-flex items-center justify-center rounded-lg bg-[var(--color-primary)] px-7 py-4 text-sm font-extrabold text-black transition hover:bg-[var(--color-mist)]">
+          Contact the Team
+        </a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,194 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { aboutPageContent } from "../data/about";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+import agropurLogo from "../assets/about/agropur-logo.webp";
+import aseLogo from "../assets/about/ase-logo.gif";
+import benPhoto from "../assets/about/ben-mcginnis.webp";
+import cortevaLogo from "../assets/about/corteva.png";
+import kevinPhoto from "../assets/about/kevin-fitzpatrick.webp";
+import mikePhoto from "../assets/about/mike-lehman.webp";
+import pepsiFritoLogo from "../assets/about/pepsi-frito.png";
+
+const { hero, story, team, metrics, clients, cta } = aboutPageContent;
+
+const teamImages = {
+  "mike-lehman": mikePhoto,
+  "kevin-fitzpatrick": kevinPhoto,
+  "ben-mcginnis": benPhoto
+};
+
+const clientLogos = {
+  corteva: cortevaLogo,
+  agropur: agropurLogo,
+  "pepsi-frito": pepsiFritoLogo,
+  ase: aseLogo
+};
+---
+
+<BaseLayout
+  title="About | Power Systems Experts Inc."
+  description="Learn about Power Systems Experts Inc., an Ontario electrical consulting team specializing in arc flash, CSA Z462 compliance, power system studies, and field investigations."
+>
+  <Header />
+  <main class="bg-white">
+    <section class="relative overflow-hidden bg-[var(--color-surface)] text-white">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_82%_30%,rgba(230,176,46,0.22),transparent_28%),linear-gradient(135deg,#2d2b30_0%,#17161a_70%)]"></div>
+      <div class="absolute inset-0 ambient-grid opacity-[0.08]"></div>
+      <div class="section-shell relative grid gap-10 py-24 md:py-32 lg:grid-cols-[1fr_0.82fr] lg:items-center lg:py-40">
+        <div class="max-w-[21rem] sm:max-w-3xl">
+          <p class="hero-kicker">{hero.eyebrow}</p>
+          <h1 class="display-font text-[2.75rem] leading-none tracking-[-0.04em] sm:text-5xl md:text-7xl">{hero.title}</h1>
+          <p class="mt-6 max-w-[20rem] text-lg leading-8 text-white/88 sm:max-w-2xl md:text-xl">{hero.description}</p>
+          <div class="mt-8 flex w-full max-w-[20rem] flex-col gap-3 sm:max-w-none sm:flex-row">
+            <a
+              href="#team"
+              class="inline-flex min-w-0 items-center justify-center rounded-lg bg-[var(--color-primary)] px-7 py-4 text-sm font-extrabold text-black transition hover:bg-[var(--color-mist)]"
+            >
+              Meet the Team
+            </a>
+            <a
+              href="#about-contact"
+              class="inline-flex min-w-0 items-center justify-center rounded-lg border border-white/24 px-7 py-4 text-sm font-extrabold text-white transition hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
+            >
+              Book a Consultation
+            </a>
+          </div>
+        </div>
+
+        <div class="about-hero-card">
+          <p>What we support</p>
+          <ul>
+            <li>Arc flash hazard analysis</li>
+            <li>Coordination and short circuit studies</li>
+            <li>Power quality analysis</li>
+            <li>Field investigations and reporting</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell py-20 md:py-28">
+      <div class="about-story-grid">
+        <div class="max-w-[21rem] sm:max-w-none">
+          <p class="section-eyebrow">{story.eyebrow}</p>
+          <h2 class="section-title mt-4">{story.title}</h2>
+        </div>
+        <div class="about-story-copy">
+          {story.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </div>
+    </section>
+
+    <section id="team" class="scroll-mt-28 bg-[var(--color-surface)] py-20 text-white md:scroll-mt-32 md:py-28">
+      <div class="section-shell">
+        <div class="mx-auto max-w-3xl text-center">
+          <p class="section-eyebrow">{team.eyebrow}</p>
+          <h2 class="display-font mt-4 text-4xl leading-tight tracking-[-0.03em] text-white md:text-5xl">{team.title}</h2>
+          <p class="mt-5 text-lg leading-8 text-white/88">{team.description}</p>
+        </div>
+
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+          {team.members.map((member) => {
+            const image = teamImages[member.slug];
+
+            return (
+              <article class="about-team-card">
+                <div class="about-team-photo">
+                  <img src={image.src} alt={`${member.name} portrait`} loading="lazy" />
+                </div>
+                <div class="p-6">
+                  <p class="text-[0.72rem] font-extrabold uppercase tracking-[0.22em] text-[var(--color-primary)]">{member.role}</p>
+                  <h3 class="display-font mt-3 text-2xl leading-tight text-white">{member.name}</h3>
+                  <p class="mt-4 text-[0.96rem] leading-7 text-white/86">{member.bio}</p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell py-20 md:py-28">
+      <div class="about-metrics-panel">
+        <div>
+          <p class="section-eyebrow">{metrics.eyebrow}</p>
+          <h2 class="display-font mt-4 text-4xl leading-tight tracking-[-0.03em] text-white md:text-5xl">{metrics.title}</h2>
+          <p class="mt-5 max-w-2xl text-base leading-8 text-white/88 md:text-lg">{metrics.description}</p>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {metrics.items.map((metric) => (
+            <div class="about-metric-card">
+              <p>{metric.label}</p>
+              <strong>{metric.value}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section-shell pb-20 md:pb-28">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="section-eyebrow">{clients.eyebrow}</p>
+        <h2 class="section-title mt-4">{clients.title}</h2>
+      </div>
+
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {clients.items.map((client) => {
+          const logo = clientLogos[client.slug];
+
+          return (
+            <div class="about-logo-card">
+              <img src={logo.src} alt={`${client.name} logo`} loading="lazy" />
+            </div>
+          );
+        })}
+      </div>
+    </section>
+
+    <section id="about-contact" class="section-shell scroll-mt-28 pb-20 md:scroll-mt-32 md:pb-28">
+      <div class="services-inquiry-card">
+        <div>
+          <p class="text-[0.78rem] font-extrabold uppercase tracking-[0.22em] text-[var(--color-primary)]">Consultation</p>
+          <h2 class="display-font mt-4 text-4xl leading-tight text-white md:text-5xl">{cta.title}</h2>
+          <p class="mt-5 max-w-2xl text-base leading-8 text-white/88 md:text-lg">{cta.description}</p>
+        </div>
+
+        <form
+          name="about-consultation"
+          action="/about/"
+          method="post"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          class="grid gap-4 rounded-2xl border border-white/12 bg-white/[0.07] p-5 sm:p-6"
+        >
+          <input type="hidden" name="form-name" value="about-consultation" />
+          <p class="hidden">
+            <label>Do not fill this out if you are human: <input name="bot-field" /></label>
+          </p>
+
+          <div class="grid gap-4 md:grid-cols-2">
+            <input required type="text" name="name" placeholder="Your name" class="services-form-input" />
+            <input required type="email" name="email" placeholder="Your email" class="services-form-input" />
+          </div>
+
+          <input required type="text" name="subject" placeholder="Subject" class="services-form-input" />
+          <textarea
+            name="message"
+            rows="6"
+            placeholder="Your message (optional)"
+            class="services-form-input resize-y leading-6"
+          ></textarea>
+
+          <button type="submit" class="inline-flex items-center justify-center rounded-lg bg-[var(--color-primary)] px-7 py-4 text-sm font-extrabold text-black transition hover:bg-[var(--color-mist)]">
+            {cta.primaryLabel}
+          </button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

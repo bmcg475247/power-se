@@ -1,0 +1,33 @@
+---
+import type { HomepageContent } from "../types/content";
+
+type Props = {
+  content: HomepageContent["faq"];
+};
+
+const { content } = Astro.props;
+---
+
+<section class="faq-section bg-white pb-20 md:pb-28">
+  <div class="section-shell">
+    <div class="faq-panel">
+      <div class="faq-intro">
+        <p class="section-eyebrow">{content.eyebrow}</p>
+        <h2 class="display-font mt-4 text-4xl leading-tight tracking-[-0.03em] text-white md:text-5xl">{content.title}</h2>
+        <p class="mt-5 text-base leading-8 text-white/88 md:text-lg">{content.description}</p>
+      </div>
+
+      <div class="faq-list">
+        {content.items.map((item) => (
+          <details class="faq-item">
+            <summary>
+              <span>{item.question}</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </summary>
+            <p>{item.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

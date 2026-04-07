@@ -23,11 +23,9 @@ export const siteConfig = {
 };
 
 export const navigation: NavItem[] = [
-  { label: "Home", href: "#top", isAnchor: true },
-  { label: "About", href: "#", isAnchor: false },
-  { label: "Services", href: "#", isAnchor: false },
-  { label: "Projects", href: "#", isAnchor: false },
-  { label: "Blog", href: "#", isAnchor: false },
-  { label: "Resources", href: "#", isAnchor: false },
-  { label: "Contact", href: "#", isAnchor: false }
+  { label: "Home", href: "/", isAnchor: false },
+  { label: "About", href: "/about", isAnchor: false },
+  { label: "Services", href: "/services", isAnchor: false },
+  { label: "Blog", href: "/blog", isAnchor: false },
+  { label: "Contact", href: "/#cta", isAnchor: false }
 ];

@@ -31,16 +31,19 @@ export const homepageContent: HomepageContent = {
     items: [
       {
         title: "Arc Flash Analysis",
+        href: "/services#arc-flash-hazard-analysis",
         description:
           "Support compliance and worker protection with incident energy analysis, equipment labeling, and documentation aligned to CSA Z462 and accepted engineering practice."
       },
       {
         title: "Power System Studies",
+        href: "/services#coordination-studies",
         description:
           "Short-circuit, coordination, and system performance studies that help facilities improve protection, reliability, and upgrade planning."
       },
       {
         title: "Engineering Investigations",
+        href: "/services#engineering-investigations",
         description:
           "Identify root causes behind major power issues and receive practical engineering direction that helps restore system performance with confidence."
       }
@@ -72,6 +75,72 @@ export const homepageContent: HomepageContent = {
       }
     ]
   },
+  deliverables: {
+    eyebrow: "Project Deliverables",
+    title: "Clear documentation your team can use after the study is complete",
+    description:
+      "Every project is built around practical outputs: labels, reports, diagrams, and recommendations that help your team understand risk, document compliance, and move forward with confidence.",
+    items: [
+      {
+        title: "Arc Flash Labels",
+        description:
+          "Equipment labels with the information your team needs to identify arc flash risk, PPE expectations, and equipment-specific safety details."
+      },
+      {
+        title: "Engineering Reports",
+        description:
+          "Clear reports summarizing study assumptions, findings, calculations, risk areas, and recommended next steps."
+      },
+      {
+        title: "One-Line Diagrams",
+        description:
+          "Updated one-line diagrams that help your team understand system layout, equipment relationships, and the basis of the study."
+      },
+      {
+        title: "Actionable Recommendations",
+        description:
+          "Practical engineering recommendations prioritized around safety, reliability, compliance, and maintainable next steps."
+      },
+      {
+        title: "Compliance Documentation",
+        description:
+          "Documentation aligned with electrical safety expectations so your facility is better prepared for internal reviews, audits, and inspections."
+      }
+    ]
+  },
+  faq: {
+    eyebrow: "Common Questions",
+    title: "Answers before you start a project",
+    description:
+      "A few practical details facility teams often ask before starting an arc flash study, system assessment, or engineering investigation.",
+    items: [
+      {
+        question: "How often should an arc flash study be updated?",
+        answer:
+          "Arc flash studies should be reviewed on a regular cycle and whenever major electrical system changes occur, such as equipment replacements, protection setting changes, facility expansions, or utility changes. Many facilities use a five-year review cycle as a planning benchmark, but your actual needs depend on your system and applicable safety requirements."
+      },
+      {
+        question: "Do you serve facilities outside Ontario?",
+        answer:
+          "Yes. Power Systems Experts can support facilities across Canada, depending on project scope, site access, and data collection requirements. Some studies can be supported remotely when accurate system information is available."
+      },
+      {
+        question: "What information do you need to start?",
+        answer:
+          "Helpful starting information includes one-line diagrams, equipment lists, utility or transformer data, breaker and fuse information, previous studies, and the reason for the project. If you do not have everything ready, we can help identify what is needed."
+      },
+      {
+        question: "Can you help after an electrical incident?",
+        answer:
+          "Yes. We provide engineering investigation support for facilities facing major power issues, equipment failures, recurring faults, or unexplained system behavior. The goal is to identify root causes and provide practical next steps."
+      },
+      {
+        question: "What do we receive when the project is complete?",
+        answer:
+          "Typical deliverables may include an engineering report, arc flash labels, one-line diagram updates, findings, and recommendations. The exact deliverables depend on the service and project scope."
+      }
+    ]
+  },
   industries: {
     eyebrow: "Industries Served",
     title: "Trusted by facility teams across these sectors",
@@ -89,9 +158,9 @@ export const homepageContent: HomepageContent = {
           "Commercial properties and campuses that need practical engineering direction for compliance and system performance."
       },
       {
-        title: "Utilities & Infrastructure",
+        title: "Healthcare",
         description:
-          "Organizations managing critical electrical assets, investigations, and reliability-sensitive operations."
+          "Hospitals, clinics, and healthcare facilities where electrical safety, documentation, and reliable power support patient care."
       },
       {
         title: "Institutional Facilities",

@@ -11,7 +11,7 @@ const { content } = Astro.props;
 <section id="services" class="section-shell py-20 md:py-28">
   <div class="mx-auto max-w-3xl text-center">
     <h2 class="section-title">{content.eyebrow}</h2>
-    <p class="mt-3 text-lg leading-8 text-[var(--color-ink)]/68">{content.title}</p>
+    <p class="mt-3 text-lg leading-8 text-[var(--color-ink)]/84">{content.title}</p>
   </div>
 
   <div class="mt-12 grid gap-6 lg:grid-cols-3">
@@ -39,8 +39,10 @@ const { content } = Astro.props;
           )}
         </div>
         <h3 class="mt-5 text-[1.42rem] font-extrabold leading-tight text-[var(--color-ink)]">{item.title}</h3>
-        <p class="mt-3 flex-1 text-[0.97rem] leading-7 text-[var(--color-ink)]/66">{item.description}</p>
-        <span class="service-link-lite">Learn more -></span>
+        <p class="mt-3 flex-1 text-[0.97rem] leading-7 text-[var(--color-ink)]/84">{item.description}</p>
+        <a href={item.href} class="service-link-lite" aria-label={`Learn more about ${item.title}`}>
+          Learn more ->
+        </a>
       </article>
     ))}
   </div>

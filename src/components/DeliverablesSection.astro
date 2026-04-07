@@ -1,0 +1,67 @@
+---
+import type { HomepageContent } from "../types/content";
+
+type Props = {
+  content: HomepageContent["deliverables"];
+};
+
+const { content } = Astro.props;
+---
+
+<section class="deliverables-section bg-white py-20 md:py-28">
+  <div class="section-shell">
+    <div class="deliverables-panel">
+      <div class="deliverables-copy">
+        <p class="section-eyebrow">{content.eyebrow}</p>
+        <h2 class="section-title mt-4">{content.title}</h2>
+        <p class="mt-5 text-base leading-8 text-[var(--color-ink)]/84 md:text-lg">{content.description}</p>
+
+        <div class="mt-9 grid gap-3">
+          {content.items.map((item, index) => (
+            <article class="deliverable-item">
+              <span class="deliverable-item__number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div class="deliverables-visual" role="img" aria-label="Preview of project documentation">
+        <div class="deliverable-document deliverable-document--primary">
+          <div class="deliverable-document__header">
+            <span></span>
+            <span></span>
+          </div>
+          <div class="deliverable-document__title"></div>
+          <div class="deliverable-document__line deliverable-document__line--wide"></div>
+          <div class="deliverable-document__line"></div>
+          <div class="deliverable-document__line deliverable-document__line--short"></div>
+          <div class="deliverable-recommendation-grid">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+
+        <div class="deliverable-document deliverable-document--secondary">
+          <div class="deliverable-document__header">
+            <span></span>
+            <span></span>
+          </div>
+          <div class="deliverable-document__title"></div>
+          <div class="deliverable-document__line deliverable-document__line--wide"></div>
+          <div class="deliverable-document__line"></div>
+          <div class="deliverable-document__line deliverable-document__line--short"></div>
+          <div class="deliverable-summary-list">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

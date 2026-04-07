@@ -9,25 +9,25 @@ type Props = {
 const { content } = Astro.props;
 ---
 
-<section class="hero-rim relative overflow-hidden pb-10 pt-4 md:pb-14 md:pt-8 lg:min-h-[calc(100svh-6.55rem)]">
+<section class="hero-rim relative overflow-hidden pb-8 pt-3 sm:pb-10 sm:pt-4 md:pb-14 md:pt-8 lg:min-h-[calc(100svh-6.55rem)]">
   <div
     class="absolute inset-0 -z-10 rounded-none bg-cover bg-center"
     style={`background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)), url(${heroBackground.src});`}
   ></div>
   <div class="section-shell flex min-h-[inherit] min-w-0 items-center">
-    <div class="flex min-w-0 w-full flex-col gap-6 py-3 md:py-5 lg:grid lg:grid-cols-[minmax(0,1fr)_20.5rem] lg:items-start lg:gap-10">
+    <div class="flex min-w-0 w-full flex-col gap-5 py-2 sm:gap-6 md:py-5 lg:grid lg:grid-cols-[minmax(0,1fr)_20.5rem] lg:items-start lg:gap-10">
       <div class="min-w-0 max-w-none lg:max-w-3xl">
         <p class="hero-kicker">{content.eyebrow}</p>
-        <h1 class="display-font max-w-[10ch] text-[2.35rem] leading-[1.02] tracking-[-0.03em] text-white sm:max-w-[11ch] sm:text-[2.85rem] md:text-[3.35rem] xl:text-[4rem]">
+        <h1 class="display-font max-w-[10ch] text-[2.2rem] leading-[1.02] tracking-[-0.03em] text-white min-[380px]:text-[2.35rem] sm:max-w-[11ch] sm:text-[2.85rem] md:text-[3.35rem] xl:text-[4rem]">
           Arc Flash Compliance
           <br />
           &amp; Power Systems Optimization
         </h1>
-        <p class="mt-4 max-w-[34ch] text-[0.97rem] leading-6 text-white/86 sm:mt-6 sm:max-w-2xl sm:text-[1.02rem] sm:leading-7 md:text-[1.08rem]">
+        <p class="mt-3 max-w-[33ch] text-[0.95rem] leading-[1.58] text-white/86 sm:mt-6 sm:max-w-2xl sm:text-[1.02rem] sm:leading-7 md:text-[1.08rem]">
           {content.description}
         </p>
 
-        <div class="mt-6 flex flex-col gap-3 sm:max-w-sm lg:hidden">
+        <div class="mt-5 flex flex-col gap-3 sm:mt-6 sm:max-w-sm lg:hidden">
           <a
             href="#mobile-quote-form"
             class="inline-flex w-full items-center justify-center rounded-lg bg-[var(--color-primary)] px-6 py-3 text-center text-sm font-extrabold text-black transition hover:bg-[var(--color-mist)]"
@@ -46,7 +46,7 @@ const { content } = Astro.props;
       <aside class="hidden min-w-0 w-full rounded-xl border border-white/12 bg-[rgba(25,24,27,0.88)] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-md lg:block">
         <p class="text-[0.78rem] font-bold uppercase tracking-[0.16em] text-[var(--color-primary)]">Contact Us</p>
         <h2 class="mt-2 text-[1.9rem] font-extrabold leading-tight text-white">Request a Quote</h2>
-        <p class="mt-2 text-[0.92rem] leading-6 text-white/72 sm:text-sm sm:leading-5">
+        <p class="mt-2 text-[0.92rem] leading-6 text-white/86 sm:text-sm sm:leading-5">
           Share a few details and our team can follow up about your facility, timing, and project needs.
         </p>
 
@@ -64,19 +64,21 @@ const { content } = Astro.props;
             type="text"
             name="name"
             placeholder="Name"
-            class="rounded-lg border border-white/12 bg-white/6 px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-white/36 focus:border-[var(--color-primary)]"
+            required
+            class="rounded-lg border border-white/12 bg-white/6 px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-white/58 focus:border-[var(--color-primary)]"
           />
           <input
             type="email"
             name="email"
             placeholder="Email"
-            class="rounded-lg border border-white/12 bg-white/6 px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-white/36 focus:border-[var(--color-primary)]"
+            required
+            class="rounded-lg border border-white/12 bg-white/6 px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-white/58 focus:border-[var(--color-primary)]"
           />
           <input
             type="tel"
             name="phone"
             placeholder="Phone"
-            class="rounded-lg border border-white/12 bg-white/6 px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-white/36 focus:border-[var(--color-primary)]"
+            class="rounded-lg border border-white/12 bg-white/6 px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-white/58 focus:border-[var(--color-primary)]"
           />
 
           <div class="mt-2 flex flex-col gap-2.5">
@@ -102,7 +104,7 @@ const { content } = Astro.props;
     <div id="mobile-quote-form" class="rounded-xl border border-white/12 bg-[rgba(25,24,27,0.94)] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-md">
       <p class="text-[0.78rem] font-bold uppercase tracking-[0.16em] text-[var(--color-primary)]">Contact Us</p>
       <h2 class="mt-2 text-[1.9rem] font-extrabold leading-tight text-white">Request a Quote</h2>
-      <p class="mt-2 text-[0.92rem] leading-6 text-white/72">
+      <p class="mt-2 text-[0.92rem] leading-6 text-white/86">
         Share a few details and our team can follow up about your facility, timing, and project needs.
       </p>
 
@@ -120,19 +122,21 @@ const { content } = Astro.props;
           type="text"
           name="name"
           placeholder="Name"
-          class="rounded-lg border border-white/12 bg-white/6 px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-white/36 focus:border-[var(--color-primary)]"
+          required
+          class="rounded-lg border border-white/12 bg-white/6 px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-white/58 focus:border-[var(--color-primary)]"
         />
         <input
           type="email"
           name="email"
           placeholder="Email"
-          class="rounded-lg border border-white/12 bg-white/6 px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-white/36 focus:border-[var(--color-primary)]"
+          required
+          class="rounded-lg border border-white/12 bg-white/6 px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-white/58 focus:border-[var(--color-primary)]"
         />
         <input
           type="tel"
           name="phone"
           placeholder="Phone"
-          class="rounded-lg border border-white/12 bg-white/6 px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-white/36 focus:border-[var(--color-primary)]"
+          class="rounded-lg border border-white/12 bg-white/6 px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-white/58 focus:border-[var(--color-primary)]"
         />
 
         <button
